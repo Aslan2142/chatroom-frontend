@@ -59,7 +59,7 @@ class Home extends React.Component {
                 </InputGroup.Prepend>
                 <FormControl className="bg-dark text-light border-secondary" onChange={(e) => { this.updateUsername(e.target.value); }} onKeyPress={(e) => { if (e.charCode === 13 && this.state.username.length >= 3) this.startChatting(); }} value={this.state.username} placeholder="Enter your Username (at least 3 letters)"></FormControl>
                 <InputGroup.Append>
-                    <Button variant="info" onClick={this.startChatting} disabled={this.state.username.length < 3}>Start Chatting <Check2 size={22} /></Button>
+                    <Button variant="info" onClick={this.startChatting} disabled={this.state.username.length < 3}>Start Chatting <Check2 size={21} /></Button>
                 </InputGroup.Append>
             </InputGroup>
         )

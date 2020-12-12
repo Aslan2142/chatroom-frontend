@@ -34,9 +34,12 @@ class Chat extends React.Component {
     downloadNewMessages = () => {
         if (this.downloadingMessages) return;
         this.downloadingMessages = true;
-
+        
         Axios.get(BackendUrl + 'api/v1/message?after=' + this.lastMessageUuid).then(response => {
-            if (response.data.length === 0) return;
+            if (response.data.length === 0) {
+                this.downloadingMessages = false;
+                return;
+            }
 
             let tmpMessages = this.state.messages;
             response.data.forEach(message => {
@@ -106,7 +109,7 @@ class Chat extends React.Component {
         if (file.endsWith('.jpg') || file.endsWith('.png') || file.endsWith('.gif') || file.endsWith('.webp') || file.endsWith('.svg')) {
             return <a target="_blank" rel="noreferrer" href={BackendUrl + 'api/v1/file/' + file}><Image className="mt-2 mb-2" width="480" src={BackendUrl + 'api/v1/file/' + file} rounded /></a>
         } else if (file.endsWith('.mp4') || file.endsWith('.mkv') || file.endsWith('.mov') || file.endsWith('.webm') || file.endsWith('.avi')) {
-            return <video width="480" controls src={BackendUrl + 'api/v1/file/' + file} />
+            return <video className="mt-2 mb-2" width="480" controls src={BackendUrl + 'api/v1/file/' + file} style={{ borderRadius: "0.25rem" }} />
         } else {
             return <a target="_blank" rel="noreferrer" href={BackendUrl + 'api/v1/file/' + file}><Button className="mt-2 mb-2" variant="info">Download File</Button></a>;
         }
